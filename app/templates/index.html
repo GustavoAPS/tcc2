@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOGOFLIX</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            background-image: url('/static/fundo.avif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .navbar {
+            background-color: #C19CBF;
+        }
+        .navbar-light .navbar-nav .nav-link {
+            color: #FFFFFF;
+        }
+        .navbar-light .navbar-nav .nav-link.active,
+        .navbar-light .navbar-nav .nav-link:hover {
+            color: #FFFFFF;
+            background-color: transparent;
+        }
+        .form-inline {
+            display: flex;
+            align-items: center;
+        }
+        .input-group {
+            border-radius: 25px;
+            background-color: #DBAEE2;
+            overflow: hidden;
+        }
+        .form-control {
+            border: none;
+            border-radius: 25px;
+            color: #FFFFFF;
+            background-color: #DBAEE2;
+        }
+        .input-group .form-control::placeholder {
+            color: #FFFFFF;
+        }
+        .input-group .input-group-append .input-group-text {
+            border-radius: 25px;
+            background-color: #DBAEE2;
+            color: #FFFFFF;
+            border: none;
+        }
+        .btn-login {
+            background-color: #D584D7;
+            color: #FFFFFF;
+            border-radius: 10px;
+            border: none;
+        }
+        .btn-login:hover {
+            background-color: #B76BBD;
+        }
+        .content-container {
+            background-color: rgba(136, 131, 183, 0.6); 
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px;
+            width: 70%; 
+            max-width: 1200px; 
+            margin-left: auto; 
+            margin-right: auto; 
+        }
+        .carousel-title {
+            color: #FFFFFF;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            margin-left: 30px; 
+        }
+        .carousel-inner {
+            display: flex;
+            overflow: hidden;
+        }
+        .carousel-item {
+            display: flex;
+            width: 200%; 
+        }
+        .carousel-item img {
+            width: 50%; 
+            margin-right: 20px; 
+            margin: 20px;
+            border-radius: 15px; 
+            object-fit: cover;
+            max-height: 200px; 
+        }
+        .carousel-item:last-child img {
+            margin-right: 0; 
+        }
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 5%; 
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de Navegação -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#">
+            <img src="../static/logo.png" alt="JOGOFLIX" style="height: 40px;"> <!-- Ajuste o caminho e a altura conforme necessário -->
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Jogos <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Categorias</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Meu Espaço</a>
+                </li>
+            </ul>
+            <form class="form-inline ml-auto" action="#" method="get">
+                <div class="input-group">
+                    <input class="form-control" type="search" placeholder="Buscar" aria-label="Search">
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+                </div>
+                <a class="btn btn-login ml-2" href="#" role="button">Login</a>
+            </form>
+        </div>
+    </nav>
+
+    <!-- Retângulo com Carrosséis -->
+    <div class="content-container">
+        <!-- Carrossel Jogos Mais Acessados -->
+        <div>
+            <h2 class="carousel-title">Jogos Mais Acessados</h2>
+            <div id="carouselJogosMaisAcessados" class="carousel slide mb-4" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="d-flex">
+                            <img src="https://via.placeholder.com/400x400?text=Jogos+Mais+Acessados+1" class="d-block" alt="Jogos Mais Acessados 1">
+                            <img src="https://via.placeholder.com/400x400?text=Jogos+Mais+Acessados+2" class="d-block" alt="Jogos Mais Acessados 2">
+                            <img src="https://via.placeholder.com/400x400?text=Jogos+Mais+Acessados+3" class="d-block" alt="Jogos Mais Acessados 3">
+                            <img src="https://via.placeholder.com/400x400?text=Jogos+Mais+Acessados+4" class="d-block" alt="Jogos Mais Acessados 4">
+                            <img src="https://via.placeholder.com/400x400?text=Jogos+Mais+Acessados+5" class="d-block" alt="Jogos Mais Acessados 5">
+                        </div>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselJogosMaisAcessados" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselJogosMaisAcessados" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Carrossel Jogos de Ação -->
+        <div>
+            <h2 class="carousel-title">Jogos de Ação</h2>
+            <div id="carouselJogosDeAcao" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="d-flex">
+                            <img src="https://via.placeholder.com/400x400?text=Jogos+de+A%C3%A7%C3%A3o+1" class="d-block" alt="Jogos de Ação 1">
+                            <img src="https://via.placeholder.com/400x400?text=Jogos+de+A%C3%A7%C3%A3o+2" class="d-block" alt="Jogos de Ação 2">
+                            <img src="https://via.placeholder.com/400x400?text=Jogos+de+A%C3%A7%C3%A3o+3" class="d-block" alt="Jogos de Ação 3">
+                            <img src="https://via.placeholder.com/400x400?text=Jogos+de+A%C3%A7%C3%A3o+4" class="d-block" alt="Jogos de Ação 4">
+                            <img src="https://via.placeholder.com/400x400?text=Jogos+de+A%C3%A7%C3%A3o+5" class="d-block" alt="Jogos de Ação 5">
+                        </div>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselJogosDeAcao" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselJogosDeAcao" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
