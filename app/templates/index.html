@@ -101,13 +101,62 @@
         .carousel-control-next {
             width: 5%; 
         }
+        
+        .modal-content {
+            background-color: #8883B7;
+            border-radius: 65px;
+            padding: 20px;
+            color: #FFFFFF;
+        }
+        .modal-header {
+            border: none;
+            justify-content: center;
+            text-align: center;
+        }
+        .modal-title {
+            margin: 0;
+            font-size: 24px;
+            justify-content: center;
+            text-align: center;
+        }
+        .modal-body {
+            border: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .modal-body form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .form-group {
+            width: 80%;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+        .btn-login, .btn-register {
+            background-color: #D584D7;
+            color: #FFFFFF;
+            border-radius: 25px;
+            border: none;
+            margin: 10px;
+            width: 150px;
+            text-align: center;
+        }
+        .btn-login:hover, .btn-register:hover {
+            background-color: #B76BBD;
+        }
     </style>
 </head>
 <body>
     <!-- Barra de Navegação -->
     <nav class="navbar navbar-expand-lg navbar-light">
         <a class="navbar-brand" href="#">
-            <img src="../static/logo.png" alt="JOGOFLIX" style="height: 40px;"> <!-- Ajuste o caminho e a altura conforme necessário -->
+            <img src="../static/logo.png" alt="JOGOFLIX" style="height: 40px;">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -124,7 +173,7 @@
                     <a class="nav-link" href="#">Meu Espaço</a>
                 </li>
             </ul>
-            <form class="form-inline ml-auto" action="#" method="get">
+            <form class="form-inline ml-auto">
                 <div class="input-group">
                     <input class="form-control" type="search" placeholder="Buscar" aria-label="Search">
                     <div class="input-group-append">
@@ -133,10 +182,28 @@
                         </span>
                     </div>
                 </div>
-                <a class="btn btn-login ml-2" href="#" role="button">Login</a>
+                <button type="button" class="btn btn-login ml-2" data-toggle="modal" data-target="#loginModal">Login</button>
             </form>
         </div>
     </nav>
+
+    <!-- Exibição de Mensagens Flash -->
+    <div class="container mt-4">
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                <div class="alert alert-dismissible fade show" role="alert">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
 
     <!-- Retângulo com Carrosséis -->
     <div class="content-container">
@@ -169,7 +236,7 @@
         <!-- Carrossel Jogos de Ação -->
         <div>
             <h2 class="carousel-title">Jogos de Ação</h2>
-            <div id="carouselJogosDeAcao" class="carousel slide" data-ride="carousel">
+            <div id="carouselJogosDeAcao" class="carousel slide mb-4" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <div class="d-flex">
@@ -193,8 +260,74 @@
         </div>
     </div>
 
+    <!-- Modal de Login -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ url_for('login') }}" method="POST">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu e-mail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="senha">Senha</label>
+                            <input type="password" class="form-control" id="senha" name="senha" placeholder="Digite sua senha" required>
+                        </div>
+                        <div class="form-group btn-group">
+                            <button type="submit" class="btn btn-login">Login</button>
+                            <button type="button" class="btn btn-register" data-toggle="modal" data-target="#registerModal">Cadastrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Cadastro -->
+    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalLabel">Cadastro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ url_for('register') }}" method="POST">
+                        <div class="form-group">
+                            <label for="nome">Nome</label>
+                            <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite seu nome completo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu e-mail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="senha">Senha</label>
+                            <input type="password" class="form-control" id="senha" name="senha" placeholder="Digite sua senha" required>
+                        </div>
+                        <div class="form-group btn-group">
+                            <button type="submit" class="btn btn-register">Cadastrar</button>
+                            <button type="button" class="btn btn-login" data-toggle="modal" data-target="#loginModal">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 </body>
 </html>
