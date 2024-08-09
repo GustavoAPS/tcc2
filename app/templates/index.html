@@ -186,8 +186,8 @@
             </form>
         </div>
     </nav>
-
-    <!-- Exibição de Mensagens Flash -->
+    
+    <!-- Exibir mensagens de flash -->
     <div class="container mt-4">
         {% with messages = get_flashed_messages(with_categories=True) %}
             {% if messages %}
@@ -260,7 +260,7 @@
         </div>
     </div>
 
-    <!-- Modal de Login -->
+    <!-- Modal Login -->
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -271,18 +271,18 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ url_for('login') }}" method="POST">
+                    <form method="post" action="/login">
                         <div class="form-group">
-                            <label for="email">Email</label>
+                            <label for="email">E-mail</label>
                             <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu e-mail" required>
                         </div>
                         <div class="form-group">
-                            <label for="senha">Senha</label>
-                            <input type="password" class="form-control" id="senha" name="senha" placeholder="Digite sua senha" required>
+                            <label for="password">Senha</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha" required>
                         </div>
-                        <div class="form-group btn-group">
-                            <button type="submit" class="btn btn-login">Login</button>
-                            <button type="button" class="btn btn-register" data-toggle="modal" data-target="#registerModal">Cadastrar</button>
+                        <div class="btn-group">
+                            <button type="submit" class="btn-login">Entrar</button>
+                            <a href="/register" class="btn-register">Cadastre-se</a>
                         </div>
                     </form>
                 </div>
@@ -290,44 +290,9 @@
         </div>
     </div>
 
-    <!-- Modal de Cadastro -->
-    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="registerModalLabel">Cadastro</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ url_for('register') }}" method="POST">
-                        <div class="form-group">
-                            <label for="nome">Nome</label>
-                            <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite seu nome completo" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu e-mail" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="senha">Senha</label>
-                            <input type="password" class="form-control" id="senha" name="senha" placeholder="Digite sua senha" required>
-                        </div>
-                        <div class="form-group btn-group">
-                            <button type="submit" class="btn btn-register">Cadastrar</button>
-                            <button type="button" class="btn btn-login" data-toggle="modal" data-target="#loginModal">Login</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Scripts -->
+    <!-- Scripts do Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 </body>
 </html>
