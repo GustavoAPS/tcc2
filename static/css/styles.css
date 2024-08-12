@@ -1,0 +1,98 @@
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+body {
+    background-image: url('/static/images/fundo.avif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.navbar {
+    background-color: #C19CBF;
+}
+.navbar-light .navbar-nav .nav-link {
+    color: #FFFFFF;
+}
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-nav .nav-link:hover {
+    color: #FFFFFF;
+    background-color: transparent;
+}
+.content-container {
+    background-color: rgba(136, 131, 183, 0.6); 
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px;
+    width: 70%; 
+    max-width: 1200px; 
+    margin-left: auto; 
+    margin-right: auto; 
+}
+.form-group {
+    width: 100%;
+    margin-bottom: 15px;
+}
+.btn-register {
+    background-color: #D584D7;
+    color: #FFFFFF;
+    border-radius: 25px;
+    border: none;
+    width: 150px;
+    text-align: center;
+}
+.btn-register:hover {
+    background-color: #B76BBD;
+}
+.genre-options,
+.activity-options,
+.motivation-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.genre-option,
+.activity-option,
+.motivation-option {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 10px;
+    margin: 5px;
+    width: 30%;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Adiciona sombra */
+}
+.genre-option input[type="checkbox"],
+.activity-option input[type="checkbox"],
+.motivation-option input[type="checkbox"] {
+    margin-right: 10px;
+}
+.genre-option i,
+.activity-option i,
+.motivation-option i {
+    font-size: 24px; /* Tamanho maior dos ícones */
+    margin-left: auto; /* Alinhamento dos ícones à direita */
+    color: #FFFFFF; /* Cor branca dos ícones */
+}
+.genre-option label,
+.activity-option label,
+.motivation-option label {
+    margin: 0;
+    color: #FFFFFF;
+}
+.flash {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+}
+.flash.success {
+    background-color: #28a745;
+}
+.flash.danger {
+    background-color: #dc3545;
+}

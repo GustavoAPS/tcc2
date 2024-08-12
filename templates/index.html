@@ -6,151 +6,7 @@
     <title>JOGOFLIX</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-        }
-        body {
-            background-image: url('/static/fundo.avif');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-        .navbar {
-            background-color: #C19CBF;
-        }
-        .navbar-light .navbar-nav .nav-link {
-            color: #FFFFFF;
-        }
-        .navbar-light .navbar-nav .nav-link.active,
-        .navbar-light .navbar-nav .nav-link:hover {
-            color: #FFFFFF;
-            background-color: transparent;
-        }
-        .form-inline {
-            display: flex;
-            align-items: center;
-        }
-        .input-group {
-            border-radius: 25px;
-            background-color: #DBAEE2;
-            overflow: hidden;
-        }
-        .form-control {
-            border: none;
-            border-radius: 25px;
-            color: #FFFFFF;
-            background-color: #DBAEE2;
-        }
-        .input-group .form-control::placeholder {
-            color: #FFFFFF;
-        }
-        .input-group .input-group-append .input-group-text {
-            border-radius: 25px;
-            background-color: #DBAEE2;
-            color: #FFFFFF;
-            border: none;
-        }
-        .btn-login {
-            background-color: #D584D7;
-            color: #FFFFFF;
-            border-radius: 10px;
-            border: none;
-        }
-        .btn-login:hover {
-            background-color: #B76BBD;
-        }
-        .content-container {
-            background-color: rgba(136, 131, 183, 0.6); 
-            border-radius: 15px;
-            padding: 20px;
-            margin: 20px;
-            width: 70%; 
-            max-width: 1200px; 
-            margin-left: auto; 
-            margin-right: auto; 
-        }
-        .carousel-title {
-            color: #FFFFFF;
-            margin-bottom: 20px;
-            font-size: 24px;
-            font-weight: bold;
-            margin-left: 30px; 
-        }
-        .carousel-inner {
-            display: flex;
-            overflow: hidden;
-        }
-        .carousel-item {
-            display: flex;
-            width: 200%; 
-        }
-        .carousel-item img {
-            width: 50%; 
-            margin-right: 20px; 
-            margin: 20px;
-            border-radius: 15px; 
-            object-fit: cover;
-            max-height: 200px; 
-        }
-        .carousel-item:last-child img {
-            margin-right: 0; 
-        }
-        .carousel-control-prev,
-        .carousel-control-next {
-            width: 5%; 
-        }
-        
-        .modal-content {
-            background-color: #8883B7;
-            border-radius: 65px;
-            padding: 20px;
-            color: #FFFFFF;
-        }
-        .modal-header {
-            border: none;
-            justify-content: center;
-            text-align: center;
-        }
-        .modal-title {
-            margin: 0;
-            font-size: 24px;
-            justify-content: center;
-            text-align: center;
-        }
-        .modal-body {
-            border: none;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .modal-body form {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .form-group {
-            width: 80%;
-        }
-        .btn-group {
-            display: flex;
-            gap: 10px;
-        }
-        .btn-login, .btn-register {
-            background-color: #D584D7;
-            color: #FFFFFF;
-            border-radius: 25px;
-            border: none;
-            margin: 10px;
-            width: 150px;
-            text-align: center;
-        }
-        .btn-login:hover, .btn-register:hover {
-            background-color: #B76BBD;
-        }
-    </style>
+    <link rel="stylesheet" href="static/css/styles.css">
 </head>
 <body>
     <!-- Barra de Navegação -->
@@ -186,8 +42,8 @@
             </form>
         </div>
     </nav>
-
-    <!-- Exibição de Mensagens Flash -->
+    
+    <!-- Exibir mensagens de flash -->
     <div class="container mt-4">
         {% with messages = get_flashed_messages(with_categories=True) %}
             {% if messages %}
@@ -260,7 +116,7 @@
         </div>
     </div>
 
-    <!-- Modal de Login -->
+    <!-- Modal Login -->
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -271,18 +127,18 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ url_for('login') }}" method="POST">
+                    <form method="post" action="/login">
                         <div class="form-group">
-                            <label for="email">Email</label>
+                            <label for="email">E-mail</label>
                             <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu e-mail" required>
                         </div>
                         <div class="form-group">
-                            <label for="senha">Senha</label>
-                            <input type="password" class="form-control" id="senha" name="senha" placeholder="Digite sua senha" required>
+                            <label for="password">Senha</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha" required>
                         </div>
-                        <div class="form-group btn-group">
-                            <button type="submit" class="btn btn-login">Login</button>
-                            <button type="button" class="btn btn-register" data-toggle="modal" data-target="#registerModal">Cadastrar</button>
+                        <div class="btn-group">
+                            <button type="submit" class="btn-login">Entrar</button>
+                            <a href="/register" class="btn-register">Cadastre-se</a>
                         </div>
                     </form>
                 </div>
@@ -290,44 +146,9 @@
         </div>
     </div>
 
-    <!-- Modal de Cadastro -->
-    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="registerModalLabel">Cadastro</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ url_for('register') }}" method="POST">
-                        <div class="form-group">
-                            <label for="nome">Nome</label>
-                            <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite seu nome completo" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu e-mail" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="senha">Senha</label>
-                            <input type="password" class="form-control" id="senha" name="senha" placeholder="Digite sua senha" required>
-                        </div>
-                        <div class="form-group btn-group">
-                            <button type="submit" class="btn btn-register">Cadastrar</button>
-                            <button type="button" class="btn btn-login" data-toggle="modal" data-target="#loginModal">Login</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Scripts -->
+    <!-- Scripts do Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 </body>
 </html>
