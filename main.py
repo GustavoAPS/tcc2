@@ -1,41 +1,18 @@
-#import libraries
 from flask import Flask, request, jsonify, render_template, redirect, url_for, flash
-from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 import os
+from models import User, Game, db
 
-#load .env file, with the enviroment variables
 load_dotenv()
 
-#start flask app
 app = Flask(__name__)
 
-#config database connection
+# config database connection
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
-db = SQLAlchemy(app)
-
-
-# Define user model
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-
-    def __repr__(self):
-        return f'<User {self.name}>'
-
-# Define game model
-class Game(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), nullable=False)
-    category = db.Column(db.String(80), nullable=False)
-    
-    def __repr__(self):
-        return f'<User {self.name}>'
-
+db.init_app(app)
 
 
 @app.route('/')
@@ -43,9 +20,6 @@ def index():
     return render_template('index.html')
 
 
-#CRUD - Users
-
-# Create
 @app.route('/users', methods=['POST'])
 def create_user():
     data = request.get_json()
@@ -55,7 +29,6 @@ def create_user():
     return jsonify({'message': 'User created'}), 201
 
 
-# Read - Single
 @app.route("/users/<int:id>", methods=['GET'])
 def user_by_id(id):
     print('got into single user')
@@ -63,15 +36,13 @@ def user_by_id(id):
     return jsonify([{'id': user.id, 'name': user.name, 'email': user.email}])
 
 
-# Read - All
 @app.route('/users', methods=['GET'])
 def get_users():
     print('got into all users')
     users = User.query.all()
     return jsonify([{'id': user.id, 'name': user.name, 'email': user.email} for user in users])
 
-# Update
-# ------------------------------------------------------------ MISSING
+
 @app.route('/users/<int:id>', methods=['PUT'])
 def update_user(id):
     user = db.get_or_404(User, id)
@@ -83,8 +54,7 @@ def update_user(id):
     db.session.commit()
     return jsonify({'message': 'User updated'}), 200
 
-# Delete
-# ------------------------------------------------------------ MISSING
+
 @app.route('/users/<int:id>', methods=['DELETE'])
 def delete_user(id):
     user = db.get_or_404(User, id)
@@ -94,7 +64,6 @@ def delete_user(id):
 
 
 #CRUD - Games
-
 # Create
 # ------------------------------------------------------------ MISSING
 # Read - Single
@@ -105,6 +74,7 @@ def delete_user(id):
 # ------------------------------------------------------------ MISSING
 # Delete
 # ------------------------------------------------------------ MISSING
+
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -165,5 +135,8 @@ def register():
 
     return render_template('register.html')
 
+
 if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
     app.run(host='0.0.0.0')
