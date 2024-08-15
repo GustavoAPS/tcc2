@@ -41,9 +41,8 @@ def user_by_id(id):
 
 @app.route('/users', methods=['GET'])
 def get_users():
-    print('got into all users')
     users = User.query.all()
-    return render_template('users.html', users=users)
+    return render_template('user_list.html', users=users)
 
 
 @app.route('/users/<int:id>', methods=['PUT'])
@@ -58,13 +57,14 @@ def update_user(id):
     return jsonify({'message': 'User updated'}), 200
 
 
-@app.route('/users/<int:id>', methods=['DELETE'])
+@app.route('/users/<int:id>', methods=['POST'])
 def delete_user(id):
     user = db.get_or_404(User, id)
     db.session.delete(user)
     db.session.commit()
-    return jsonify({'message': 'User deleted'}), 200
-
+    users = User.query.all()
+    return render_template('user_list.html', users=users)
+    
 
 #CRUD - Games
 # Create
