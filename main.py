@@ -1,7 +1,9 @@
-from flask import Flask, request, jsonify, render_template, redirect, url_for, flash
+from flask import Flask, request, jsonify, render_template, redirect, url_for, flash, session
 from dotenv import load_dotenv
 import os
 from models import User, Game, db
+from flask_migrate import Migrate
+
 
 load_dotenv()
 
@@ -11,9 +13,10 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 db.init_app(app)
 
+migrate = Migrate(app, db)
 
 @app.route('/')
 def index():
@@ -40,7 +43,7 @@ def user_by_id(id):
 def get_users():
     print('got into all users')
     users = User.query.all()
-    return jsonify([{'id': user.id, 'name': user.name, 'email': user.email} for user in users])
+    return render_template('users.html', users=users)
 
 
 @app.route('/users/<int:id>', methods=['PUT'])
@@ -93,6 +96,7 @@ def login():
         print(f"Senha: {password}")
         return redirect(url_for('index'))
 
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -103,7 +107,6 @@ def register():
         confirm_password = request.form.get('confirm_password')
         anxiety = request.form.get('anxiety')
         competitiveness = request.form.get('competitiveness')
-
         genres = request.form.getlist('genres')
         activities = request.form.getlist('activities')
         motivations = request.form.getlist('motivations')
