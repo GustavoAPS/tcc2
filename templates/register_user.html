@@ -33,7 +33,7 @@
             </div>
 
             <div class="form-group">
-                <label class="text-white">Quais dessas opções você acharia relaxante após um dia longo?</label>
+                <label class="text-white">Qual dessas atividades você acharia mais relaxante após um dia longo?</label>
                 <div class="genre-options">
                     <div class="genre-option">
                         <input type="checkbox" id="music" name="genres" value="music">
@@ -47,7 +47,7 @@
                     </div>
                     <div class="genre-option">
                         <input type="checkbox" id="puzzle" name="genres" value="puzzle">
-                        <label for="puzzle">Jogando xadrez ou montando um quebra-cabeça."</label>
+                        <label for="puzzle">Jogando xadrez ou montando um quebra-cabeça.</label>
                         <i class="fas fa-brain"></i>
                     </div>
                     <div class="genre-option">
@@ -57,7 +57,6 @@
                     </div>
                 </div>
             </div>
-            
             <div class="form-group">
                 <label class="text-white">Quanto tempo você normalmente passa em aplicativos ou jogos?</label>
                 <div class="genre-options">
@@ -76,10 +75,124 @@
                         <label for="long-time">Uma hora ou mais</label>
                         <i class="fas fa-chess"></i>
                     </div>
-                    
                 </div>
             </div>
 
+            <div class="form-group">
+                <label class="text-white">Qual o seu estilo de jogo preferido?</label>
+                <div class="genre-options">
+                    <div class="genre-option">
+                        <input type="checkbox" id="co-op" name="game-style" value="co-op">
+                        <label for="co-op">Cooperativo</label>
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <div class="genre-option">
+                        <input type="checkbox" id="competitive" name="game-style" value="competitive">
+                        <label for="competitive">Competitivo</label>
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="genre-option">
+                        <input type="checkbox" id="open-world" name="game-style" value="open-world">
+                        <label for="open-world">Mundo Aberto</label>
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="genre-option">
+                        <input type="checkbox" id="narrative" name="game-style" value="narrative">
+                        <label for="narrative">Narrativo</label>
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="genre-option">
+                        <input type="checkbox" id="social" name="game-style" value="social">
+                        <label for="social">Social</label>
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="text-white">Qual o seu nível de interesse em esportes e atividades físicas?</label>
+                <div class="genre-options">
+                    <div class="genre-option">
+                        <input type="checkbox" id="sports" name="interest-level" value="sports">
+                        <label for="sports">Muito interessado</label>
+                        <i class="fas fa-football-ball"></i>
+                    </div>
+                    <div class="genre-option">
+                        <input type="checkbox" id="somewhat" name="interest-level" value="somewhat">
+                        <label for="somewhat">Um pouco interessado</label>
+                        <i class="fas fa-basketball-ball"></i>
+                    </div>
+                    <div class="genre-option">
+                        <input type="checkbox" id="not-interested" name="interest-level" value="not-interested">
+                        <label for="not-interested">Não interessado</label>
+                        <i class="fas fa-running"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Novas Perguntas -->
+            <div class="form-group">
+                <label class="text-white">Qual é a sua preferência em relação ao nível de complexidade dos jogos?</label>
+                <div class="genre-options">
+                    <div class="genre-option">
+                        <input type="checkbox" id="simple" name="complexity" value="simple">
+                        <label for="simple">Muito simples</label>
+                        <i class="fas fa-sitemap"></i>
+                    </div>
+                    <div class="genre-option">
+                        <input type="checkbox" id="moderate" name="complexity" value="moderate">
+                        <label for="moderate">Moderadamente complexo</label>
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="genre-option">
+                        <input type="checkbox" id="complex" name="complexity" value="complex">
+                        <label for="complex">Muito complexo</label>
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="text-white">Qual tipo de feedback você mais valoriza em um jogo?</label>
+                <div class="genre-options">
+                    <div class="genre-option">
+                        <input type="checkbox" id="visual" name="feedback" value="visual">
+                        <label for="visual">Feedback visual</label>
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <div class="genre-option">
+                        <input type="checkbox" id="audio" name="feedback" value="audio">
+                        <label for="audio">Feedback auditivo</label>
+                        <i class="fas fa-volume-up"></i>
+                    </div>
+                    <div class="genre-option">
+                        <input type="checkbox" id="interactive" name="feedback" value="interactive">
+                        <label for="interactive">Feedback interativo</label>
+                        <i class="fas fa-hand-pointer"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="text-white">Qual o seu estilo de narrativa preferido em jogos?</label>
+                <div class="genre-options">
+                    <div class="genre-option">
+                        <input type="checkbox" id="linear" name="narrative-style" value="linear">
+                        <label for="linear">Narrativas lineares</label>
+                        <i class="fas fa-pen"></i>
+                    </div>
+                    <div class="genre-option">
+                        <input type="checkbox" id="branching" name="narrative-style" value="branching">
+                        <label for="branching">Narrativas ramificadas</label>
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="genre-option">
+                        <input type="checkbox" id="open" name="narrative-style" value="open">
+                        <label for="open">Narrativas abertas</label>
+                        <i class="fas fa-map"></i>
+                    </div>
+                </div>
+            </div>
 
             <div class="text-center">
                 <button type="submit" class="btn btn-register">Cadastrar</button>

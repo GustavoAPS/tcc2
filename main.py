@@ -149,34 +149,75 @@ def register():
         confirm_password = request.form.get('confirm_password')
         genres = request.form.getlist('genres')
         play_time = request.form.getlist('play-time')
+        game_style = request.form.getlist('game-style')
+        interest_level = request.form.getlist('interest-level')
 
         new_user_prefs = default_user_prefs  # get the defaul user prefs dict
 
-        # ------- move this to another file ---------- #
         if 'music' in genres:
-            new_user_prefs["musical"] += 1
-            new_user_prefs["sensorial"] += 1
+            new_user_prefs["musical"] += 3
+            new_user_prefs["sensorial"] += 2
+            new_user_prefs["meditation"] += 1
+
         if 'story' in genres:
-            new_user_prefs["adventure"] += 1
-            new_user_prefs["rpg"] += 1
+            new_user_prefs["narrative"] += 3
+            new_user_prefs["adventure"] += 2
+            new_user_prefs["rpg"] += 2
+
         if 'puzzle' in genres:
-            new_user_prefs["puzzle"] += 1
-            new_user_prefs["strategy"] += 1
+            new_user_prefs["puzzle"] += 3
+            new_user_prefs["strategy"] += 2
             new_user_prefs["simulation"] += 1
+
         if 'art' in genres:
-            new_user_prefs["painting"] += 1
-            new_user_prefs["sensorial"] += 1
-        # -------------------------------------------- #
-        if 'shor-time' in play_time:
-            new_user_prefs["arcade"] += 1
-            new_user_prefs["casual"] += 1
+            new_user_prefs["painting"] += 3
+            new_user_prefs["sensorial"] += 2
+            new_user_prefs["meditation"] += 1
+
+        if 'short-time' in play_time:
+            new_user_prefs["arcade"] += 3
+            new_user_prefs["casual"] += 2
+            new_user_prefs["idle"] += 1
+
         if 'medium-time' in play_time:
-            new_user_prefs["virtual-version"] += 1
+            new_user_prefs["virtual-version"] += 3
+            new_user_prefs["casual"] += 2
+
         if 'long-time' in play_time:
-            new_user_prefs["simulation"] += 1
-            new_user_prefs["strategy"] += 1
+            new_user_prefs["simulation"] += 3
+            new_user_prefs["strategy"] += 2
+            new_user_prefs["rpg"] += 2
+            new_user_prefs["adventure"] += 1
+
+        if 'co-op' in game_style:
+            new_user_prefs["co-op"] += 3
+            new_user_prefs["social"] += 2
+
+        if 'competitive' in game_style:
+            new_user_prefs["competitive"] += 3
+            new_user_prefs["strategy"] += 2
+
+        if 'open-world' in game_style:
+            new_user_prefs["open-world"] += 3
+            new_user_prefs["adventure"] += 2
+
+        if 'narrative' in game_style:
+            new_user_prefs["narrative"] += 3
+            new_user_prefs["adventure"] += 2
             new_user_prefs["rpg"] += 1
-        # -------------------------------------------- #
+
+        if 'social' in game_style:
+            new_user_prefs["social"] += 3
+            new_user_prefs["co-op"] += 2
+
+        if 'sports' in interest_level:
+            new_user_prefs["sports"] += 3
+
+        if 'somewhat' in interest_level:
+            new_user_prefs["sports"] += 2
+
+        if 'not-interested' in interest_level:
+            new_user_prefs["sports"] -= 3
 
         if not (username and password and confirm_password):
             flash('Todos os campos são obrigatórios!', 'danger')
