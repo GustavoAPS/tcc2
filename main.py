@@ -1,9 +1,10 @@
+import os
 from flask import Flask, request, jsonify, render_template, redirect, url_for, flash, session
 from dotenv import load_dotenv
-import os
-from models import User, Game, db
 from flask_migrate import Migrate
-
+from functools import wraps
+from models import User, Game, db
+from DadosEstaticos import default_user_prefs
 
 load_dotenv()
 
@@ -18,25 +19,77 @@ db.init_app(app)
 
 migrate = Migrate(app, db)
 
+# move to another file
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            flash('You need to be logged in to access this page.')
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+
+def calculate_weight(game: Game, user: User):
+    recomendation_weight = 0
+    categories = game.get_categories()
+    user_prefs_dict = user.get_prefs()
+
+    for category in categories:
+        recomendation_weight += user_prefs_dict[category]
+
+    return recomendation_weight
+
+
 @app.route('/')
 def index():
-    return render_template('index.html')
+    games = Game.query.all()
+
+    if 'user_id' in session:
+        user = db.get_or_404(User, session['user_id']) 
+        games_with_weights = [(game, calculate_weight(game, user)) for game in games]
+        games_with_weights.sort(key=lambda x: x[1], reverse=True)
+        return render_template('index.html', games_with_weights=games_with_weights)
+
+    else:
+        games_with_weights = [(game,0) for game in games]
+        return render_template('index.html', games_with_weights=games_with_weights)
+
+
+@app.route('/login', methods=['POST'])
+def login():
+    username = request.form['username']
+    password = request.form['password']
+
+    user = User.query.filter_by(name=username).first_or_404()
+
+    if user and user.check_password(password):
+        session['user_id'] = user.id
+        return redirect(url_for('index'))
+    else:
+        return redirect(url_for('index'))
+
+
+@app.route('/logout')
+def logout():
+    session.pop('user_id', None)
+    return redirect(url_for('index'))
 
 
 @app.route('/users', methods=['POST'])
 def create_user():
     data = request.get_json()
-    new_user = User(name=data['name'], email=data['email'])
+    new_user = User(name=data['name'])
     db.session.add(new_user)
     db.session.commit()
     return jsonify({'message': 'User created'}), 201
 
 
 @app.route("/users/<int:id>", methods=['GET'])
+@login_required
 def user_by_id(id):
-    print('got into single user')
     user = db.get_or_404(User, id)
-    return jsonify([{'id': user.id, 'name': user.name, 'email': user.email}])
+    return render_template('view_user.html', user=user)
 
 
 @app.route('/users', methods=['GET'])
@@ -51,8 +104,6 @@ def update_user(id):
     data = request.get_json()
     if 'name' in data:
         user.name = data['name']
-    if 'email' in data:
-        user.name = data['email']
     db.session.commit()
     return jsonify({'message': 'User updated'}), 200
 
@@ -64,79 +115,89 @@ def delete_user(id):
     db.session.commit()
     users = User.query.all()
     return render_template('user_list.html', users=users)
-    
-
-#CRUD - Games
-# Create
-# ------------------------------------------------------------ MISSING
-# Read - Single
-# ------------------------------------------------------------ MISSING
-# Read - All
-# ------------------------------------------------------------ MISSING
-# Update 
-# ------------------------------------------------------------ MISSING
-# Delete
-# ------------------------------------------------------------ MISSING
 
 
-@app.route('/login', methods=['POST'])
-def login():
-    email = request.form['email']
-    password = request.form['password']  
+@app.route('/create_game', methods=['GET', 'POST'])
+def create_game():
+    if request.method == 'POST':
+        form_name = request.form.get('name')
 
-    # Teste de autentificação
-    if email == 'test@example.com' and password == 'password':  
-        flash('Login bem-sucedido!', 'success')
-        print(f"Email: {email}")
-        print(f"Senha: {password}")
+        form_categories = request.form.getlist('category')
+
+        flash('Jogo criado com sucesso!', 'success')
+
+        new_game = Game(name=form_name)
+        new_game.set_categories(form_categories)
+        db.session.add(new_game)
+        db.session.commit()
         return redirect(url_for('index'))
-    else:
-        flash('Email ou senha inválidos.', 'warning')
-        print(f"Email: {email}")
-        print(f"Senha: {password}")
-        return redirect(url_for('index'))
+       
+    return render_template('register_game.html')
+
+
+@app.route("/game/<int:id>", methods=['GET'])
+def game_by_id(id):
+    game = db.get_or_404(Game, id)
+    return render_template('view_game.html', game=game)
 
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         username = request.form.get('username')
-        email = request.form.get('email')
-        confirm_email = request.form.get('confirm_email')
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
-        anxiety = request.form.get('anxiety')
-        competitiveness = request.form.get('competitiveness')
         genres = request.form.getlist('genres')
-        activities = request.form.getlist('activities')
-        motivations = request.form.getlist('motivations')
+        play_time = request.form.getlist('play-time')
 
-        # Validações
-        if not (username and email and confirm_email and password and confirm_password):
+        new_user_prefs = default_user_prefs  # get the defaul user prefs dict
+
+        # ------- move this to another file ---------- #
+        if 'music' in genres:
+            new_user_prefs["musical"] += 1
+            new_user_prefs["sensorial"] += 1
+        if 'story' in genres:
+            new_user_prefs["adventure"] += 1
+            new_user_prefs["rpg"] += 1
+        if 'puzzle' in genres:
+            new_user_prefs["puzzle"] += 1
+            new_user_prefs["strategy"] += 1
+            new_user_prefs["simulation"] += 1
+        if 'art' in genres:
+            new_user_prefs["painting"] += 1
+            new_user_prefs["sensorial"] += 1
+        # -------------------------------------------- #
+        if 'shor-time' in play_time:
+            new_user_prefs["arcade"] += 1
+            new_user_prefs["casual"] += 1
+        if 'medium-time' in play_time:
+            new_user_prefs["virtual-version"] += 1
+        if 'long-time' in play_time:
+            new_user_prefs["simulation"] += 1
+            new_user_prefs["strategy"] += 1
+            new_user_prefs["rpg"] += 1
+        # -------------------------------------------- #
+
+        if not (username and password and confirm_password):
             flash('Todos os campos são obrigatórios!', 'danger')
-            return redirect(url_for('register'))
-
-        if email != confirm_email:
-            flash('Os e-mails não coincidem!', 'danger')
             return redirect(url_for('register'))
 
         if password != confirm_password:
             flash('As senhas não coincidem!', 'danger')
             return redirect(url_for('register'))
 
-        # Teste de depuração
-        print(f"Username: {username}")
-        print(f"Email: {email}")
-        print(f"Anxiety: {anxiety}")
-        print(f"Competitiveness: {competitiveness}")
-        print(f"Genres: {', '.join(genres)}")
-        print(f"Activities: {', '.join(activities)}")
-        print(f"Motivations: {', '.join(motivations)}")
+        string_confirmacao = (f"Genres: {', '.join(genres)}") + (f"Play time: {', '.join(play_time)}")
 
-        flash('Cadastro realizado com sucesso!', 'success')
+        flash(string_confirmacao, 'success')
+
+        new_user = User(name=username)
+        new_user.set_password(password)
+        new_user.set_prefs(new_user_prefs)
+        db.session.add(new_user)
+        db.session.commit()
         return redirect(url_for('index'))
 
-    return render_template('register.html')
+    return render_template('register_user.html')
 
 
 if __name__ == '__main__':

@@ -1,36 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JOGOFLIX - Cadastro</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="static/css/styles.css">
-</head>
-<body>
-    <!-- Barra de Navegação -->
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="#">
-            <img src="../static/logo.png" alt="JOGOFLIX" style="height: 40px;">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Jogos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Categorias</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Meu Espaço</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+{% extends "base.html" %}
+{% block title %}Users{% endblock %}
+{% block content %}
 
     <!-- Container de Cadastro -->
     <div class="content-container">
@@ -52,14 +22,7 @@
                 <label for="username" class="text-white">Nome de Usuário</label>
                 <input type="text" class="form-control" id="username" name="username" placeholder="Digite seu nome de usuário" required>
             </div>
-            <div class="form-group">
-                <label for="email" class="text-white">E-mail</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu e-mail" required>
-            </div>
-            <div class="form-group">
-                <label for="confirm_email" class="text-white">Confirme o E-mail</label>
-                <input type="email" class="form-control" id="confirm_email" name="confirm_email" placeholder="Confirme seu e-mail" required>
-            </div>
+            
             <div class="form-group">
                 <label for="password" class="text-white">Senha</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha" required>
@@ -68,105 +31,59 @@
                 <label for="confirm_password" class="text-white">Confirme a Senha</label>
                 <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirme sua senha" required>
             </div>
+
             <div class="form-group">
-                <label for="anxiety" class="text-white">Você possui ansiedade?</label>
-                <select class="form-control" id="anxiety" name="anxiety" required>
-                    <option value="">Selecione</option>
-                    <option value="yes">Sim</option>
-                    <option value="no">Não</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="competitiveness" class="text-white">Você é competitivo?</label>
-                <select class="form-control" id="competitiveness" name="competitiveness" required>
-                    <option value="">Selecione</option>
-                    <option value="yes">Sim</option>
-                    <option value="no">Não</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="text-white">Gêneros de Jogos Preferidos</label>
+                <label class="text-white">Quais dessas opções você acharia relaxante após um dia longo?</label>
                 <div class="genre-options">
                     <div class="genre-option">
-                        <input type="checkbox" id="action" name="genres" value="action">
-                        <label for="action">Ação</label>
+                        <input type="checkbox" id="music" name="genres" value="music">
+                        <label for="music">Tocando um instrumento ou ouvindo música.</label>
                         <i class="fas fa-fist-raised"></i>
                     </div>
                     <div class="genre-option">
-                        <input type="checkbox" id="adventure" name="genres" value="adventure">
-                        <label for="adventure">Aventura</label>
+                        <input type="checkbox" id="story" name="genres" value="story">
+                        <label for="story">Assistindo a um filme ou lendo um livro.</label>
                         <i class="fas fa-hiking"></i>
                     </div>
                     <div class="genre-option">
                         <input type="checkbox" id="puzzle" name="genres" value="puzzle">
-                        <label for="puzzle">Puzzle</label>
+                        <label for="puzzle">Jogando xadrez ou montando um quebra-cabeça."</label>
                         <i class="fas fa-brain"></i>
                     </div>
                     <div class="genre-option">
-                        <input type="checkbox" id="strategy" name="genres" value="strategy">
-                        <label for="strategy">Estratégia</label>
+                        <input type="checkbox" id="art" name="genres" value="art">
+                        <label for="art">Pintando, desenhando ou fazendo uma atividade artística.</label>
                         <i class="fas fa-chess"></i>
                     </div>
-                    <div class="genre-option">
-                        <input type="checkbox" id="sports" name="genres" value="sports">
-                        <label for="sports">Esportes</label>
-                        <i class="fas fa-football-ball"></i>
-                    </div>
-                    <div class="genre-option">
-                        <input type="checkbox" id="rpg" name="genres" value="rpg">
-                        <label for="rpg">RPG</label>
-                        <i class="fas fa-dice-d20"></i>
-                    </div>
                 </div>
             </div>
+            
             <div class="form-group">
-                <label class="text-white">Nível de Atividade</label>
-                <div class="activity-options">
-                    <div class="activity-option">
-                        <input type="checkbox" id="active" name="activity_level" value="active">
-                        <label for="active">Ativo</label>
-                        <i class="fas fa-running"></i>
+                <label class="text-white">Quanto tempo você normalmente passa em aplicativos ou jogos?</label>
+                <div class="genre-options">
+                    <div class="genre-option">
+                        <input type="checkbox" id="short-time" name="play-time" value="short-time">
+                        <label for="short-time">Apenas alguns minutos</label>
+                        <i class="fas fa-hiking"></i>
                     </div>
-                    <div class="activity-option">
-                        <input type="checkbox" id="moderate" name="activity_level" value="moderate">
-                        <label for="moderate">Moderado</label>
-                        <i class="fas fa-walking"></i>
+                    <div class="genre-option">
+                        <input type="checkbox" id="medium-time" name="play-time" value="medium-time">
+                        <label for="medium-time">Entre 15 e 30 minutos</label>
+                        <i class="fas fa-brain"></i>
                     </div>
-                    <div class="activity-option">
-                        <input type="checkbox" id="casual" name="activity_level" value="casual">
-                        <label for="casual">Casual</label>
-                        <i class="fas fa-couch"></i>
+                    <div class="genre-option">
+                        <input type="checkbox" id="long-time" name="play-time" value="long-time">
+                        <label for="long-time">Uma hora ou mais</label>
+                        <i class="fas fa-chess"></i>
                     </div>
+                    
                 </div>
             </div>
-            <div class="form-group">
-                <label class="text-white">Motivação para Jogar</label>
-                <div class="motivation-options">
-                    <div class="motivation-option">
-                        <input type="checkbox" id="relaxation" name="motivation" value="relaxation">
-                        <label for="relaxation">Relaxar</label>
-                        <i class="fas fa-spa"></i>
-                    </div>
-                    <div class="motivation-option">
-                        <input type="checkbox" id="challenge" name="motivation" value="challenge">
-                        <label for="challenge">Desafio</label>
-                        <i class="fas fa-trophy"></i>
-                    </div>
-                    <div class="motivation-option">
-                        <input type="checkbox" id="social" name="motivation" value="social">
-                        <label for="social">Socializar</label>
-                        <i class="fas fa-users"></i>
-                    </div>
-                </div>
-            </div>
+
+
             <div class="text-center">
                 <button type="submit" class="btn btn-register">Cadastrar</button>
             </div>
         </form>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+    {% endblock %}

@@ -1,60 +1,24 @@
 {% extends "base.html" %}
 {% block title %}Index{% endblock %}
 {% block content %}
-    
-    <!-- Retângulo com Carrosséis -->
-    <div class="content-container">
-        <!-- Carrossel Jogos Mais Acessados -->
-        <div>
-            <h2 class="carousel-title">Jogos Mais Acessados</h2>
-            <div id="carouselJogosMaisAcessados" class="carousel slide mb-4" data-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="d-flex">
-                            <img src="https://via.placeholder.com/400x400?text=Jogos+Mais+Acessados+1" class="d-block" alt="Jogos Mais Acessados 1">
-                            <img src="https://via.placeholder.com/400x400?text=Jogos+Mais+Acessados+2" class="d-block" alt="Jogos Mais Acessados 2">
-                            <img src="https://via.placeholder.com/400x400?text=Jogos+Mais+Acessados+3" class="d-block" alt="Jogos Mais Acessados 3">
-                            <img src="https://via.placeholder.com/400x400?text=Jogos+Mais+Acessados+4" class="d-block" alt="Jogos Mais Acessados 4">
-                            <img src="https://via.placeholder.com/400x400?text=Jogos+Mais+Acessados+5" class="d-block" alt="Jogos Mais Acessados 5">
-                        </div>
-                    </div>
-                </div>
-                <a class="carousel-control-prev" href="#carouselJogosMaisAcessados" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselJogosMaisAcessados" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
-        </div>
 
-        <!-- Carrossel Jogos de Ação -->
-        <div>
-            <h2 class="carousel-title">Jogos de Ação</h2>
-            <div id="carouselJogosDeAcao" class="carousel slide mb-4" data-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="d-flex">
-                            <img src="https://via.placeholder.com/400x400?text=Jogos+de+A%C3%A7%C3%A3o+1" class="d-block" alt="Jogos de Ação 1">
-                            <img src="https://via.placeholder.com/400x400?text=Jogos+de+A%C3%A7%C3%A3o+2" class="d-block" alt="Jogos de Ação 2">
-                            <img src="https://via.placeholder.com/400x400?text=Jogos+de+A%C3%A7%C3%A3o+3" class="d-block" alt="Jogos de Ação 3">
-                            <img src="https://via.placeholder.com/400x400?text=Jogos+de+A%C3%A7%C3%A3o+4" class="d-block" alt="Jogos de Ação 4">
-                            <img src="https://via.placeholder.com/400x400?text=Jogos+de+A%C3%A7%C3%A3o+5" class="d-block" alt="Jogos de Ação 5">
-                        </div>
+<div class="container">
+    <div class="row">
+        {% for game, weight in games_with_weights %}
+        <div class="col">
+            <a href="{{ url_for('game_by_id', id=game.id) }}" class="text-decoration-none text-dark">
+                <div class="card mx-auto mb-4" style="width: 18rem;">
+                    <img src="{{ url_for('static', filename='images/game_icons/' + game.name.lower().replace(' ', '') + '.png') }}" alt="Game Logo" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ game.name }}</h5>
+                        <p class="card-text">{{ game.description }}</p>
+                        <p class="card-text">Recommendation Weight: {{ weight }}</p>
                     </div>
                 </div>
-                <a class="carousel-control-prev" href="#carouselJogosDeAcao" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselJogosDeAcao" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
+            </a>
         </div>
+        {% endfor %}
     </div>
+</div>
 
 {% endblock %}

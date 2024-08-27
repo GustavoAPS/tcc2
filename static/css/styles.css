@@ -1,16 +1,25 @@
 
+/*color-1: #F9EFDB;
+color-2: #EBD9B4;
+color-3: #9DBC98;
+color-4: #638889;
+*/
+
+
 html, body {
     height: 100%;
     margin: 0;
 }
 body {
-    background-image: url('/static/images/fundo.avif');
+    background-image: url('/static/images/fundo.svg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 .navbar {
-    background-color: #C19CBF;
+    background-color: #638889;
+    display: flex !important;
+    justify-content: center !important;
 }
 .navbar-light .navbar-nav .nav-link {
     color: #FFFFFF;

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+   <div class="content-container">
+    <h2 class="text-center text-white">Cadastrar Jogo</h2>
+
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <div>
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <form action="{{ url_for('create_game') }}" method="POST">
+
+        <div class="form-group">
+            <label for="name" class="text-white">Nome do Jogo</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome do jogo" required>
+        </div>
+
+        
+        <label class="text-white">Categorias</label>
+        <div class="genre-options">
+            <div class="genre-option">
+                <input type="checkbox" id="action" name="category" value="action">
+                <label for="action">Action</label>
+            </div>
+            <div class="genre-option">
+                <input type="checkbox" id="adventure" name="category" value="adventure">
+                <label for="adventure">Adventure</label>
+            </div>
+            <div class="genre-option">
+                <input type="checkbox" id="arcade" name="category" value="arcade">
+                <label for="arcade">Arcade</label>
+            </div>
+            <div class="genre-option">
+                <input type="checkbox" id="puzzle" name="category" value="puzzle">
+                <label for="puzzle">Puzzle</label>
+            </div>
+            <div class="genre-option">
+                <input type="checkbox" id="simulation" name="category" value="simulation">
+                <label for="simulation">Simulation</label>
+            </div>
+            <div class="genre-option">
+                <input type="checkbox" id="strategy" name="category" value="strategy">
+                <label for="strategy">Strategy</label>
+            </div>
+            <div class="genre-option">
+                <input type="checkbox" id="rpg" name="category" value="rpg">
+                <label for="rpg">RPG</label>
+            </div>
+            <div class="genre-option">
+                <input type="checkbox" id="casual" name="category" value="casual">
+                <label for="casual">Casual</label>
+            </div>
+            <div class="genre-option">
+                <input type="checkbox" id="virtual-version" name="category" value="virtual-version">
+                <label for="virtual-version">Virtual Version</label>
+            </div>
+            <div class="genre-option">
+                <input type="checkbox" id="idle" name="category" value="idle">
+                <label for="idle">Idle</label>
+            </div>
+            <div class="genre-option">
+                <input type="checkbox" id="musical" name="category" value="musical">
+                <label for="musical">Musical</label>
+            </div>
+            <div class="genre-option">
+                <input type="checkbox" id="meditation" name="category" value="meditation">
+                <label for="meditation">Meditation</label>
+            </div>
+            <div class="genre-option">
+                <input type="checkbox" id="sensorial" name="category" value="sensorial">
+                <label for="sensorial">Sensorial</label>
+            </div>
+            <div class="genre-option">
+                <input type="checkbox" id="paiting" name="category" value="painting">
+                <label for="paiting">Painting</label>
+            </div>
+        </div>
+    
+        
+        <div class="text-center">
+            <button type="submit" class="btn btn-register">Cadastrar</button>
+        </div>
+    </form>
+
+</div>
+{% endblock %}
