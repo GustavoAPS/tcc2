@@ -1,0 +1,247 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="content-container">
+    <h2 class="text-center text-white">Registro de Estresse</h2>
+
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <div>
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <form action="{{ url_for('user.create_stress_record') }}" method="POST">
+        <!-- Question 1 -->
+        <div class="form-group">
+            <label class="text-white">1. Com que frequência você ficou aborrecido por causa de algo que aconteceu inesperadamente? (considere os últimos 30 dias)</label>
+            <div class="btn-group btn-group-toggle d-flex flex-wrap" data-toggle="buttons">
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question1" value="0" autocomplete="off" required> Nunca
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question1" value="1" autocomplete="off" required> Quase Nunca
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question1" value="2" autocomplete="off" required> Às Vezes
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question1" value="3" autocomplete="off" required> Pouco Frequente
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question1" value="4" autocomplete="off" required> Muito Frequente
+                </label>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="form-group">
+            <label class="text-white">2. Com que frequência você sentiu que foi incapaz de controlar coisas importantes na sua vida? (considere os últimos 30 dias)</label>
+            <div class="btn-group btn-group-toggle d-flex flex-wrap" data-toggle="buttons">
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question2" value="0" autocomplete="off" required> Nunca
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question2" value="1" autocomplete="off" required> Quase Nunca
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question2" value="2" autocomplete="off" required> Às Vezes
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question2" value="3" autocomplete="off" required> Pouco Frequente
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question2" value="4" autocomplete="off" required> Muito Frequente
+                </label>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="form-group">
+            <label class="text-white">3. Com que frequência você esteve nervoso ou estressado? (considere os últimos 30 dias)</label>
+            <div class="btn-group btn-group-toggle d-flex flex-wrap" data-toggle="buttons">
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question3" value="0" autocomplete="off" required> Nunca
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question3" value="1" autocomplete="off" required> Quase Nunca
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question3" value="2" autocomplete="off" required> Às Vezes
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question3" value="3" autocomplete="off" required> Pouco Frequente
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question3" value="4" autocomplete="off" required> Muito Frequente
+                </label>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="form-group">
+            <label class="text-white">4. Com que frequência você esteve confiante em sua capacidade de lidar com seus problemas pessoais? (considere os últimos 30 dias)</label>
+            <div class="btn-group btn-group-toggle d-flex flex-wrap" data-toggle="buttons">
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question4" value="0" autocomplete="off" required> Nunca
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question4" value="1" autocomplete="off" required> Quase Nunca
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question4" value="2" autocomplete="off" required> Às Vezes
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question4" value="3" autocomplete="off" required> Pouco Frequente
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question4" value="4" autocomplete="off" required> Muito Frequente
+                </label>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="form-group">
+            <label class="text-white">5. Com que frequência você sentiu que as coisas aconteceram da maneira que você esperava? (considere os últimos 30 dias)</label>
+            <div class="btn-group btn-group-toggle d-flex flex-wrap" data-toggle="buttons">
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question5" value="0" autocomplete="off" required> Nunca
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question5" value="1" autocomplete="off" required> Quase Nunca
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question5" value="2" autocomplete="off" required> Às Vezes
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question5" value="3" autocomplete="off" required> Pouco Frequente
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question5" value="4" autocomplete="off" required> Muito Frequente
+                </label>
+            </div>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="form-group">
+            <label class="text-white">6. Com que frequência você achou que não conseguiria lidar com todas as coisas que tinha por fazer? (considere os últimos 30 dias)</label>
+            <div class="btn-group btn-group-toggle d-flex flex-wrap" data-toggle="buttons">
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question6" value="0" autocomplete="off" required> Nunca
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question6" value="1" autocomplete="off" required> Quase Nunca
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question6" value="2" autocomplete="off" required> Às Vezes
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question6" value="3" autocomplete="off" required> Pouco Frequente
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question6" value="4" autocomplete="off" required> Muito Frequente
+                </label>
+            </div>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="form-group">
+            <label class="text-white">7. Com que frequência você foi capaz de controlar irritações na sua vida? (considere os últimos 30 dias)</label>
+            <div class="btn-group btn-group-toggle d-flex flex-wrap" data-toggle="buttons">
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question7" value="0" autocomplete="off" required> Nunca
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question7" value="1" autocomplete="off" required> Quase Nunca
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question7" value="2" autocomplete="off" required> Às Vezes
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question7" value="3" autocomplete="off" required> Pouco Frequente
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question7" value="4" autocomplete="off" required> Muito Frequente
+                </label>
+            </div>
+        </div>
+
+        <!-- Question 8 -->
+        <div class="form-group">
+            <label class="text-white">8. Com que frequência você sentiu que todos os aspectos de sua vida estavam sob controle? (considere os últimos 30 dias)</label>
+            <div class="btn-group btn-group-toggle d-flex flex-wrap" data-toggle="buttons">
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question8" value="0" autocomplete="off" required> Nunca
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question8" value="1" autocomplete="off" required> Quase Nunca
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question8" value="2" autocomplete="off" required> Às Vezes
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question8" value="3" autocomplete="off" required> Pouco Frequente
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question8" value="4" autocomplete="off" required> Muito Frequente
+                </label>
+            </div>
+        </div>
+        <!-- Question 9 -->
+        <div class="form-group">
+            <label class="text-white">9. Com que frequência você achou que tinha pouco controle sobre o que acontecia em sua vida? (considere os últimos 30 dias)</label>
+            <div class="btn-group btn-group-toggle d-flex flex-wrap" data-toggle="buttons">
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question9" value="0" autocomplete="off" required> Nunca
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question9" value="1" autocomplete="off" required> Quase Nunca
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question9" value="2" autocomplete="off" required> Às Vezes
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question9" value="3" autocomplete="off" required> Pouco Frequente
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question9" value="4" autocomplete="off" required> Muito Frequente
+                </label>
+            </div>
+        </div>
+        <!-- Question 10 -->
+        <div class="form-group">
+            <label class="text-white">10. Com que frequência você sentiu que sua vida estava desordenada? (considere os últimos 30 dias)</label>
+            <div class="btn-group btn-group-toggle d-flex flex-wrap" data-toggle="buttons">
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question10" value="0" autocomplete="off" required> Nunca
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question10" value="1" autocomplete="off" required> Quase Nunca
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question10" value="2" autocomplete="off" required> Às Vezes
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question10" value="3" autocomplete="off" required> Pouco Frequente
+                </label>
+                <label class="btn btn-outline-light">
+                    <input type="radio" name="question10" value="4" autocomplete="off" required> Muito Frequente
+                </label>
+            </div>
+        </div>
+
+        <div class="container-fluid d-flex justify-content-center align-items-center">
+            <div class="row">
+                <div class="col text-center">
+                    <button type="submit" class="btn btn-outline-light">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

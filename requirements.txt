@@ -9,3 +9,4 @@ python-dotenv==1.0.1
 Werkzeug==3.0.3
 Flask-SQLAlchemy
 psycopg2-binary
+bokeh==3.0.1

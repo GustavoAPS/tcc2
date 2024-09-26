@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}View User{% endblock %}
+{% block content %}
+    <div class="container" style="display: flex; justify-content: space-between; align-items: flex-start; padding: 20px; background-color: white">
+        
+        <!-- Gráfico de Estresse (lado esquerdo) -->
+        <div style="flex: 1; margin-right: 20px;">
+            <h1>Registros de Estresse</h1>
+            <div style="height: 50vh; width: 100%;">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Card de Perfil do Usuário (lado direito) -->
+        <div class="card" style="flex: 0 0 300px;">
+            <img src="https://cdn-icons-png.flaticon.com/512/3479/3479853.png" class="card-img-top" alt="Profile Picture">
+            <div class="card-body">
+                <h5 class="card-title">{{ user.name }}</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Level {{ user.level }}</li>
+                
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between">
+                        <span>XP</span>
+                        <span>{{ user.xp }}/100</span>
+                    </div>
+                    <div class="progress" style="height: 20px;">
+                        <div class="progress-bar" role="progressbar" style="width: {{ user.xp }}%;" aria-valuenow="{{ user.xp }}" aria-valuemin="0" aria-valuemax="100">
+                            {{ user.xp }} XP
+                        </div>
+                    </div>
+                </li>
+
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between">
+                        <span>Stress Level</span>
+                        <span>{{ stress_level }}/40</span>
+                    </div>
+                    <div class="progress" style="height: 20px;">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: {{ (stress_level / 40) * 100 }}%;" aria-valuenow="{{ stress_level }}" aria-valuemin="0" aria-valuemax="40">
+                            {{ stress_level }} Stress
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="card-body">
+                <a href="{{ url_for('user.view_user_profile') }}" class="card-link">Profile</a>
+                <a href="{{ url_for('user.create_stress_record') }}" class="card-link">Registrar Estresse</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Script para gerar o gráfico -->
+    <script>
+        const labels = {{ labels | tojson }};
+ 
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'Estresse',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: {{ data | tojson }},
+            }]
+        };
+ 
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true, // Começa o eixo y no zero
+                        min: 0, // Define o valor mínimo do eixo y
+                        max: 40, // Define o valor máximo do eixo y
+                        ticks: {
+                            stepSize: 5 // Define o intervalo entre as marcas do eixo y, ajustando conforme necessário
+                        }
+                    }
+                }
+            }
+        };
+ 
+        const myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
+    </script>
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block title %}View Game{% endblock %}
+{% block content %}
+
+<!-- Div Jogo -->
+<div class="container" style="border: 2px solid;padding-right: 0px;padding-left: 0px; background-color: #F0F7F0; border-radius: 15px; border-color: #d4d7d4;">
+    <div class="container text-center">
+        <div class="row align-items-center">
+          <div class="col col-sm-auto" style="padding-right: 0px;padding-left: 0px;" >
+            <img style="border-radius: 15px; padding: 10px;" src={{ url_for('static', filename='images/game_icons/' + game.name.lower().replace(" ", "") + '.png')}} alt="Game Logo">
+          </div>
+          <div class="col align-self-start">
+            <h2>{{game.name}}</h2>
+            <p>{{game.description}}</p>
+          </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Comentarios -->
+<div class="container mt-2" style="border: 2px solid;padding-right: 0px;padding-left: 0px; background-color: #F0F7F0; border-radius: 15px; border-color: #d4d7d4;">
+    <div class="container my-5 py-5 text-body">
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-12 col-lg-10 col-xl-8">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="text-body mb-0">Comentarios</h4>
+          </div>
+    
+          {% for comment in comments %}
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="d-flex flex-start">
+                <img class="rounded-circle shadow-1-strong me-3 mr-2"
+                  src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(20).webp" alt="avatar" width="40"
+                  height="40" />
+                <div class="w-100">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="text-primary fw-bold mb-0">
+                      {{ comment.user.name }}
+                    </h6>
+                    <div class="d-flex flex-row">
+                      <!-- Render filled stars -->
+                    {% for i in range(1, comment.rating + 1) %}
+                        <i class="fas fa-star text-warning me-2"></i>
+                    {% endfor %}
+                    <!-- Render faded stars -->
+                    {% for i in range(comment.rating + 1, 6) %}
+                        <i class="far fa-star me-2" style="color: #aaa;"></i>
+                    {% endfor %}
+                    </div>
+                  </div>
+                  <div class="d-flex">
+                    <span class="text-body ms-2">{{comment.text}}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+    
+          
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+
+    
+
+<!-- Add review -->
+<section style="background-color: #638889;">
+    <div class="container my-5 py-5 text-body">
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-6">
+          <div class="card">
+            <div class="card-body p-4">
+              <div class="d-flex flex-start w-100">
+                
+                <div class="w-100">
+                  <h5>Adicionar avaliação </h5>
+
+                  <form action="{{url_for('game.create_comment', game_id=game.id)}}" method="POST">
+                    <div class="star-rating">
+                      <input type="radio" id="star5" name="rating" value="5" />
+                      <label for="star5" title="5 stars">&#9733;</label>
+                
+                      <input type="radio" id="star4" name="rating" value="4" />
+                      <label for="star4" title="4 stars">&#9733;</label>
+                
+                      <input type="radio" id="star3" name="rating" value="3" />
+                      <label for="star3" title="3 stars">&#9733;</label>
+                
+                      <input type="radio" id="star2" name="rating" value="2" />
+                      <label for="star2" title="2 stars">&#9733;</label>
+                
+                      <input type="radio" id="star1" name="rating" value="1" />
+                      <label for="star1" title="1 star">&#9733;</label>
+                    </div>
+                    
+                    <div data-mdb-input-init class="form-outline">
+                      <textarea name="text" class="form-control" id="textAreaExample" rows="4"></textarea>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-3">
+                      <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-danger">Cancelar</button>
+                      <button  type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-success">
+                        Enviar
+                      </button>
+                    </div>
+
+                  </form>
+                  
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+{% endblock %}
